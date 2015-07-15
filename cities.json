@@ -1,0 +1,210 @@
+[
+    {
+        "city": "Álava",
+        "population": 321932
+    },
+    {
+        "city": "Ávila",
+        "population": 59258
+    },
+    {
+        "city": "Albacete",
+        "population": 172693
+    },
+    {
+        "city": "Alicante",
+        "population": 335052
+    },
+    {
+        "city": "Almería",
+        "population": 192697
+    },
+    {
+        "city": "Asturias",
+        "population": 1062000
+    },
+    {
+        "city": "Badajoz",
+        "population": 150621
+    },
+    {
+        "city": "Baleares",
+        "population": 1103000
+    },
+    {
+        "city": "Barcelona",
+        "population": 1611822
+    },
+    {
+        "city": "Bilbao",
+        "population": 349356
+    },
+    {
+        "city": "Burgos",
+        "population": 179097
+    },
+    {
+        "city": "Cantabria",
+        "population": 588656
+    },
+    {
+        "city": "Castellón",
+        "population": 180185
+    },
+    {
+        "city": "Ceuta",
+        "population": 84180
+    },
+    {
+        "city": "Ciudad Real",
+        "population": 74872
+    },
+    {
+        "city": "Coruña",
+        "population": 245923
+    },
+    {
+        "city": "Cuenca",
+        "population": 56107
+    },
+    {
+        "city": "Cáceres",
+        "population": 95925
+    },
+    {
+        "city": "Cádiz",
+        "population": 122990
+    },
+    {
+        "city": "Córdoba",
+        "population": 328704
+    },
+    {
+        "city": "Donostia",
+        "population": 186126
+    },
+    {
+        "city": "Gerona",
+        "population": 97292
+    },
+    {
+        "city": "Granada",
+        "population": 237818
+    },
+    {
+        "city": "Guadalajara",
+        "population": 84504
+    },
+    {
+        "city": "Huelva",
+        "population": 148101
+    },
+    {
+        "city": "Huesca",
+        "population": 52418
+    },
+    {
+        "city": "Jaén",
+        "population": 116176
+    },
+    {
+        "city": "Las Palmas",
+        "population": 383050
+    },
+    {
+        "city": "León",
+        "population": 130601
+    },
+    {
+        "city": "Lleida",
+        "population": 139809
+    },
+    {
+        "city": "Lugo",
+        "population": 98761
+    },
+    {
+        "city": "Madrid",
+        "population": 3207247
+    },
+    {
+        "city": "Melilla",
+        "population": 83679
+    },
+    {
+        "city": "Murcia",
+        "population": 438246
+    },
+    {
+        "city": "Málaga",
+        "population": 568479
+    },
+    {
+        "city": "Navarra",
+        "population": 640790
+    },
+    {
+        "city": "Orense",
+        "population": 107542
+    },
+    {
+        "city": "Palencia",
+        "population": 80649
+    },
+    {
+        "city": "Pontevedra",
+        "population": 81576
+    },
+    {
+        "city": "Rioja",
+        "population": 319.002
+    },
+    {
+        "city": "Salamanca",
+        "population": 149528
+    },
+    {
+        "city": "Segovia",
+        "population": 54309
+    },
+    {
+        "city": "Sevilla",
+        "population": 700169
+    },
+    {
+        "city": "Soria",
+        "population": 39753
+    },
+    {
+        "city": "Tarragona",
+        "population": 133545
+    },
+    {
+        "city": "Tenerife",
+        "population": 206593
+    },
+    {
+        "city": "Teruel",
+        "population": 35961
+    },
+    {
+        "city": "Toledo",
+        "population": 83593
+    },
+    {
+        "city": "Valencia",
+        "population": 792303
+    },
+    {
+        "city": "Valladolid",
+        "population": 309714
+    },
+    {
+        "city": "Zamora",
+        "population": 64986
+    },
+    {
+        "city": "Zaragoza",
+        "population": 682004
+    }
+]
