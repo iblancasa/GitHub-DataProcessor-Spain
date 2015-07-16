@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Filename: TotalContributions.py
+# Filename: totalcontributions.py
 import json
 
 class TotalContributions:
     """Manage the total contributions in each city"""
 
-    countryContributions = 0
     cities = {}
     output_file = "totalContributions.json"
 
@@ -30,7 +29,6 @@ class TotalContributions:
            :param contributions: number total of contributions
         """
         self.cities[city] = {date: contributions};
-        self.countryContributions += contributions
 
 
 
@@ -40,4 +38,4 @@ class TotalContributions:
         with open(self.output_file, "w") as text_file:
             text_file.write(json_data)
 
-# End of TotalContributions.py
+# End of totalcontributions.py
