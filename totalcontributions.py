@@ -3,11 +3,12 @@
 
 # Filename: totalcontributions.py
 import json
+import time
 
 class TotalContributions:
     """Manage the total contributions in each city"""
 
-    cities = {}
+    cities = []
     output_file = "totalContributions.json"
 
     def __init__(self, data_directory):
@@ -19,9 +20,11 @@ class TotalContributions:
 
         try:
             with open(self.output_file) as data_file:
-                cities = json.load(data_file)
+                self.cities = json.load(data_file)
         except IOError:
             print ("\033[93m No total contributions file was detected \033[0m")
+
+
 
     def addCityData(self,city,date,contributions):
         """Add a new registry of contributions in a city
@@ -32,11 +35,28 @@ class TotalContributions:
            :param contributions: number total of contributions
            :type contributions: int
         """
-        if not city in self.cities:
-            self.cities[city] = {date: contributions};
-        else:
+        for key in self.cities:
+            name = key[0].encode('utf-8')
+            if name == city:
+                key[1][date]=contributions
+                return
+
+
+        new = [city, {date: contributions}]
+        self.cities.append(new)
+
+
+''''
+        if city in self.cities:
+            print "SE CUMPLE"
+            print city
             self.cities[city][date] = contributions;
 
+        else:
+            print city
+            self.cities[city] = {date: contributions};
+'''
+'''
     def getCityContributions(self, city):
         """Return the data of one city
         :param city: city to query
@@ -53,12 +73,25 @@ class TotalContributions:
         """
         return self.cities.keys()
 
+
+    def changeFormat(self,date):
+        return time.strptime(date[0], "%d-%m-%Y")
+
+    def getDate(self,it):
+        fechas = it[1]
+        fechas = fechas.items()
+        fechas = sorted(fechas, key=self.changeFormat,reverse=True)
+        return fechas[0][1]
+
     def toFile(self):
         """Write the data in the correct JSON"""
-        json_data = json.dumps(self.cities,sort_keys=True, indent=4)
+        it = self.cities.items()
+        it = sorted(it, key=self.getDate,reverse=True)
+
+        json_data = json.dumps(it,indent=4)
         with open(self.output_file, "w") as text_file:
             text_file.write(json_data)
 
-
+'''
 
 # End of totalcontributions.py
