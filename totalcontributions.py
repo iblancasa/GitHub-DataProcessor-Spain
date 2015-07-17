@@ -25,6 +25,9 @@ class TotalContributions:
             print ("\033[93m No total contributions file was detected \033[0m")
 
     def getCity(self,name):
+        """Get data from a city.
+           :param name: name of a city
+           :type name: str """
         for city in self.cities:
             if city[0].encode('utf-8') == name:
                 return city
@@ -32,12 +35,17 @@ class TotalContributions:
 
 
     def getDateContributions(self,date):
-        '''Helper to sort'''
+        """Helper to sort
+        :param date: one date,contribution
+        """
         for key in date:
             return time.strptime(key, "%d-%m-%Y")
 
 
     def getLastContibutions(self,city):
+        """Get last number of contributions from the list
+        :param city: city to get last number of contributions
+        :type city: str""" 
         for d in city[1][0]:
             return city[1][0][d]
 
@@ -76,11 +84,6 @@ class TotalContributions:
         :rtype: dict
         """
         return self.cities[city]['dates']
-
-
-
-
-
 
 
     def toFile(self):
