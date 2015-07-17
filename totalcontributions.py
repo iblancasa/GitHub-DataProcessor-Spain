@@ -8,14 +8,14 @@ import time
 class TotalContributions:
     """Manage the total contributions in each city"""
 
-    cities = []
+    cities = {}
     output_file = "totalContributions.json"
+
 
     def __init__(self, data_directory):
         """Constructor.
            :param data_directory: directory where the data is stored
            :type data_directory: str"""
-
         self.output_file = data_directory + "/" + self.output_file
 
         try:
@@ -23,6 +23,13 @@ class TotalContributions:
                 self.cities = json.load(data_file)
         except IOError:
             print ("\033[93m No total contributions file was detected \033[0m")
+
+
+
+    def getDateContributions(self,date):
+        '''Helper to sort'''
+        for key in date:
+            return time.strptime(key, "%d-%m-%Y")
 
 
 
@@ -35,28 +42,22 @@ class TotalContributions:
            :param contributions: number total of contributions
            :type contributions: int
         """
-        for key in self.cities:
-            name = key[0].encode('utf-8')
-            if name == city:
-                key[1][date]=contributions
-                return
-
-
-        new = [city, {date: contributions}]
-        self.cities.append(new)
-
-
-''''
         if city in self.cities:
-            print "SE CUMPLE"
-            print city
-            self.cities[city][date] = contributions;
-
+            for d in self.cities[city]['dates']:
+                for key in d:
+                    if date == key:
+                        self.cities[city]['dates'].remove(d)
+                        self.cities[city]['dates'].append({date:contributions})
+                        self.cities[city]['dates'] = sorted(self.cities[city]['dates'], key=self.getDateContributions,reverse=True)
+                        return
         else:
-            print city
-            self.cities[city] = {date: contributions};
-'''
-'''
+            self.cities[city]={"dates":[]}
+
+        self.cities[city]['dates'].append({date:contributions})
+        self.cities[city]['dates'] = sorted(self.cities[city]['dates'], key=self.getDateContributions)
+
+
+
     def getCityContributions(self, city):
         """Return the data of one city
         :param city: city to query
@@ -66,6 +67,8 @@ class TotalContributions:
         """
         return self.cities[city]
 
+
+
     def getCities(self):
         """Return all cities
         :return: all registered cities
@@ -74,24 +77,13 @@ class TotalContributions:
         return self.cities.keys()
 
 
-    def changeFormat(self,date):
-        return time.strptime(date[0], "%d-%m-%Y")
-
-    def getDate(self,it):
-        fechas = it[1]
-        fechas = fechas.items()
-        fechas = sorted(fechas, key=self.changeFormat,reverse=True)
-        return fechas[0][1]
 
     def toFile(self):
         """Write the data in the correct JSON"""
-        it = self.cities.items()
-        it = sorted(it, key=self.getDate,reverse=True)
-
-        json_data = json.dumps(it,indent=4)
+        json_data = json.dumps(self.cities,indent=4)
         with open(self.output_file, "w") as text_file:
             text_file.write(json_data)
 
-'''
+
 
 # End of totalcontributions.py
