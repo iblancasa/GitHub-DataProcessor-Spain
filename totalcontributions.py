@@ -8,7 +8,7 @@ import time
 class TotalContributions:
     """Manage the total contributions in each city"""
 
-    cities = {}
+    cities = []
     output_file = "totalContributions.json"
 
 
@@ -24,6 +24,11 @@ class TotalContributions:
         except IOError:
             print ("\033[93m No total contributions file was detected \033[0m")
 
+    def getCity(self,name):
+        for city in self.cities:
+            if city[0].encode('utf-8') == name:
+                return city
+        return None
 
 
     def getDateContributions(self,date):
@@ -31,6 +36,10 @@ class TotalContributions:
         for key in date:
             return time.strptime(key, "%d-%m-%Y")
 
+
+    def getLastContibutions(self,city):
+        for d in city[1][0]:
+            return city[1][0][d]
 
 
     def addCityData(self,city,date,contributions):
@@ -42,20 +51,21 @@ class TotalContributions:
            :param contributions: number total of contributions
            :type contributions: int
         """
-        if city in self.cities:
-            for d in self.cities[city]['dates']:
-                for key in d:
-                    if date == key:
-                        self.cities[city]['dates'].remove(d)
-                        self.cities[city]['dates'].append({date:contributions})
-                        self.cities[city]['dates'] = sorted(self.cities[city]['dates'], key=self.getDateContributions,reverse=True)
-                        return
+        city_data = self.getCity(city)
+
+        if city_data == None:
+            self.cities.append([city,[{date : contributions}]])
         else:
-            self.cities[city]={"dates":[]}
-
-        self.cities[city]['dates'].append({date:contributions})
-        self.cities[city]['dates'] = sorted(self.cities[city]['dates'], key=self.getDateContributions)
-
+            for contrib in city_data[1]:
+                for k in contrib:
+                    if  k==date:
+                        contrib[k]=contributions
+                        city_data[1] = sorted(city_data[1], key=self.getDateContributions,reverse=True)
+                        self.cities = sorted(self.cities, key=self.getLastContibutions,reverse=True)
+                        return
+            city_data[1].append({date : contributions})
+            city_data[1] = sorted(city_data[1], key=self.getDateContributions,reverse=True)
+            self.cities = sorted(self.cities, key=self.getLastContibutions,reverse=True)
 
 
     def getCityContributions(self, city):
@@ -69,12 +79,7 @@ class TotalContributions:
 
 
 
-    def getCities(self):
-        """Return all cities
-        :return: all registered cities
-        :rtype: dict
-        """
-        return self.cities.keys()
+
 
 
 
