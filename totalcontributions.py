@@ -65,7 +65,7 @@ class TotalContributions:
         :return: date - contributions dictionary
         :rtype: dict
         """
-        return self.cities[city]
+        return self.cities[city]['dates']
 
 
 
