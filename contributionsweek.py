@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+    Module to process contributions / week
+    :author: Israel Blancas Álvarez
+"""
 
 # Filename: contributionsweek.py
 import json
@@ -78,6 +82,7 @@ class ContributionsWeek:
 
         if city_data == None:
             self.cities.append([city,[{date : contributions}]])
+            self.cities = sorted(self.cities, key=self.getLastContibutions,reverse=True)
         else:
             for contrib in city_data[1]:
                 for k in contrib:

@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+    Module to process total contributions
+    :author: Israel Blancas Álvarez
+"""
+
 # Filename: totalcontributions.py
 import json
 import time
@@ -26,10 +31,10 @@ class TotalContributions:
 
     def getCity(self,name):
         """Get data from a city.
-           :param name: name of a city
-           :type name: str """
+           :param name: name of a city"""
+
         for city in self.cities:
-            if city[0].encode('utf-8') == name:
+            if  city[0] == name:
                 return city
         return None
 
@@ -38,6 +43,7 @@ class TotalContributions:
         """Helper to sort
         :param date: one date,contribution
         """
+        print date
         for key in date:
             return time.strptime(key, "%d-%m-%Y")
 
@@ -45,7 +51,7 @@ class TotalContributions:
     def getLastContibutions(self,city):
         """Get last number of contributions from the list
         :param city: city to get last number of contributions
-        :type city: str""" 
+        :type city: str"""
         for d in city[1][0]:
             return city[1][0][d]
 
@@ -63,6 +69,7 @@ class TotalContributions:
 
         if city_data == None:
             self.cities.append([city,[{date : contributions}]])
+            self.cities = sorted(self.cities, key=self.getLastContibutions,reverse=True)
         else:
             for contrib in city_data[1]:
                 for k in contrib:

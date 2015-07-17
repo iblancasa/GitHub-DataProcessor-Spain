@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+    Module to process contributions / population
+    :author: Israel Blancas Álvarez
+"""
+
+
 # Filename: totalcontributionspopulation.py
 import json
 import time
@@ -65,7 +71,7 @@ class TotalContributionsPopulation:
            :param cities
         """
         for city in cities:
-            if city["city"]==name:
+            if city["city"] == name:
                 return city['population']
 
 
@@ -97,6 +103,7 @@ class TotalContributionsPopulation:
 
         if city_data == None:
             self.cities.append([city,[{date : contributions}]])
+            self.cities = sorted(self.cities, key=self.getLastContibutions,reverse=True)
         else:
             for contrib in city_data[1]:
                 for k in contrib:
