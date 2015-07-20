@@ -47,7 +47,7 @@ for city in cities:
         languages[lang] +=1
 
 
-    totalContributions.addCityData(city['city'],time.strftime("%d-%m-%Y"),contributions) #Add total contributions
+    totalContributions.addCityData(city['city'],time.strftime("%d-%m-%Y").decode("utf-8"),contributions) #Add total contributions
     print '\033[94m \t\t Total contributions from '+name+' calculated\033[0m'
     languagesProvince.addCityData(city['city'],languages)
     print '\033[94m \t\t Total languages from '+name+' calculated\033[0m'
