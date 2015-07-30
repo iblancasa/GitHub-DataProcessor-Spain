@@ -1,206 +1,258 @@
 [
     {
         "city": "Álava",
-        "population": 321932
+        "population": 321932,
+	"utf": "%C3%81lava"
     },
     {
         "city": "Ávila",
-        "population": 59258
+        "population": 59258,
+	"utf": "%C3%81vila"
     },
     {
         "city": "Albacete",
-        "population": 172693
+        "population": 172693,
+	"utf": "Albacete"
     },
     {
         "city": "Alicante",
-        "population": 335052
+        "population": 335052,
+	"utf":"Alicante"
     },
     {
         "city": "Almería",
-        "population": 192697
+        "population": 192697,
+	"utf":"Almer%C3%ADa"
     },
     {
         "city": "Asturias",
-        "population": 1062000
+        "population": 1062000,
+	"utf":"Asturias"
     },
     {
         "city": "Badajoz",
-        "population": 150621
+        "population": 150621,
+	"utf":"Badajoz"
     },
     {
         "city": "Baleares",
-        "population": 1103000
+        "population": 1103000,
+	"utf":"Baleares"
     },
     {
         "city": "Barcelona",
-        "population": 1611822
+        "population": 1611822,
+	"utf":"Barcelona"
     },
     {
         "city": "Bilbao",
-        "population": 349356
+        "population": 349356,
+	"utf":"Bilbao"
     },
     {
         "city": "Burgos",
-        "population": 179097
+        "population": 179097,
+	"utf":"Burgos"
     },
     {
         "city": "Cantabria",
-        "population": 588656
+        "population": 588656,
+	"utf":"Cantabria"
     },
     {
         "city": "Castellón",
-        "population": 180185
+        "population": 180185,
+	"utf":"Castell%C3%B3n"
     },
     {
         "city": "Ceuta",
-        "population": 84180
+        "population": 84180,
+	"utf":"Ceuta"
     },
     {
         "city": "Ciudad Real",
-        "population": 74872
+        "population": 74872,
+	"utf":"Ciudad%20Real"
     },
     {
         "city": "Coruña",
-        "population": 245923
+        "population": 245923,
+	"utf":"Coru%C3%B1a"
     },
     {
         "city": "Cuenca",
-        "population": 56107
+        "population": 56107,
+	"utf":"Cuenca"
     },
     {
         "city": "Cáceres",
-        "population": 95925
+        "population": 95925,
+	"utf":"C%C3%A1ceres"
     },
     {
         "city": "Cádiz",
-        "population": 122990
+        "population": 122990,
+	"utf":"C%C3%A1diz"
     },
     {
         "city": "Córdoba",
-        "population": 328704
+        "population": 328704,
+	"utf":"C%C3%B3rdoba"
     },
     {
         "city": "Donostia",
-        "population": 186126
+        "population": 186126,
+	"utf":"Donostia"
     },
     {
         "city": "Gerona",
-        "population": 97292
+        "population": 97292,
+	"utf":"Gerona"
     },
     {
         "city": "Granada",
-        "population": 237818
+        "population": 237818,
+	"utf":"Granada"
     },
     {
         "city": "Huelva",
-        "population": 148101
+        "population": 148101,
+	"utf":"Huelva"
     },
     {
         "city": "Huesca",
-        "population": 52418
+        "population": 52418,
+	"utf":"Huesca"
     },
     {
         "city": "Jaén",
-        "population": 116176
+        "population": 116176,
+	"utf":"Ja%C3%A9n"
     },
     {
         "city": "Las Palmas",
-        "population": 383050
+        "population": 383050,
+	"utf":"Las%20Palmas"
+
     },
     {
         "city": "León",
-        "population": 130601
+        "population": 130601,
+	"utf":"Le%C3%B3n"
     },
     {
         "city": "Lleida",
-        "population": 139809
+        "population": 139809,
+	"utf":"Lleida"
     },
     {
         "city": "Lugo",
-        "population": 98761
+        "population": 98761,
+	"utf":"Lugo"
     },
     {
         "city": "Madrid",
-        "population": 3207247
+        "population": 3207247,
+	"utf":"Madrid"
     },
     {
         "city": "Melilla",
-        "population": 83679
+        "population": 83679,
+	"utf":"Melilla"
     },
     {
         "city": "Murcia",
-        "population": 438246
+        "population": 438246,
+	"utf":"Murcia"
     },
     {
         "city": "Málaga",
-        "population": 568479
+        "population": 568479,
+	"utf":"M%C3%A1laga"
     },
     {
         "city": "Navarra",
-        "population": 640790
+        "population": 640790,
+	"utf":"Navarra"
     },
     {
         "city": "Orense",
-        "population": 107542
+        "population": 107542,
+	"utf":"Orense"
     },
     {
         "city": "Palencia",
-        "population": 80649
+        "population": 80649,
+	"utf":"Palencia"
     },
     {
         "city": "Pontevedra",
-        "population": 81576
+        "population": 81576,
+	"utf":"Pontevedra"
     },
     {
         "city": "Rioja",
-        "population": 319002
+        "population": 319002,
+	"utf":"Rioja"
     },
     {
         "city": "Salamanca",
-        "population": 149528
+        "population": 149528,
+	"utf":"Salamanca"
     },
     {
         "city": "Segovia",
-        "population": 54309
+        "population": 54309,
+	"utf":"Segovia"
     },
     {
         "city": "Sevilla",
-        "population": 700169
+        "population": 700169,
+	"utf":"Sevilla"
     },
     {
         "city": "Soria",
-        "population": 39753
+        "population": 39753,
+	"utf":"Soria"
     },
     {
         "city": "Tarragona",
-        "population": 133545
+        "population": 133545,
+	"utf":"Tarragona"
     },
     {
         "city": "Tenerife",
-        "population": 206593
+        "population": 206593,
+	"utf":"Tenerife"
     },
     {
         "city": "Teruel",
-        "population": 35961
+        "population": 35961,
+	"utf":"Teruel"
     },
     {
         "city": "Toledo",
-        "population": 83593
+        "population": 83593,
+	"utf":"Toledo"
     },
     {
         "city": "Valencia",
-        "population": 792303
+        "population": 792303,
+	"utf":"Valencia"
     },
     {
         "city": "Valladolid",
-        "population": 309714
+        "population": 309714,
+	"utf":"Valladolid"
     },
     {
         "city": "Zamora",
-        "population": 64986
+        "population": 64986,
+	"utf":"Zamora"
     },
     {
         "city": "Zaragoza",
-        "population": 682004
+        "population": 682004,
+	"utf":"Zaragoza"
     }
 ]
