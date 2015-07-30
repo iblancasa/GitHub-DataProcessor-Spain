@@ -106,7 +106,7 @@ contributionsPopulation_total<-contributionsPopulation_total[ order(contribution
 colnames(contributionsPopulation_total) <- c("language", "rate")
 exportJson <- toJSON(contributionsPopulation_total)#To JSON
 print("Writing data total contributions / population JSON file")
-write(exportJson, "./Proyectos/GitHub-DataProcessor-Spain/ProcessedData/totalContributionsPopulation")#Writing
+write(exportJson, "./Proyectos/GitHub-DataProcessor-Spain/ProcessedData/totalContributionsPopulation.json")#Writing
 
 
 
