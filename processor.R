@@ -59,7 +59,7 @@ for (i in 1:length(cities)) {
   language_data<-table(province_data$language) #Getting languages frequency
   language_data<-as.data.frame(language_data) #To data frame
   language_data<-language_data[ order(language_data$Freq,decreasing=TRUE), ] #Sorting by frequency
-  
+  colnames(language_data) <- c("language", "developers")
   
   ##Language
   new_province<-list(cities[i],language_data)
