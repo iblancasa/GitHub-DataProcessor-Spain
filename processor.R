@@ -43,23 +43,58 @@ population<-as.numeric(provinces$population)
 
 
 url<-"https://raw.githubusercontent.com/JJ/top-github-users-data/master/data/user-data-"
-
+url_commits<-"https://api.github.com/repos/JJ/top-github-users-data/commits?path=data/user-data-"
 
 languages_result<-list()
 totalContributions_result<-c()
 totalContributionsPopulation_result<-c()
 
+
+
+
+
 for (i in 1:length(cities)) {
   print(sprintf("Getting data about languages in %s",cities[i]))
   file<-paste(url, utf[i],".json", sep="")
   print(cities[i])
-  print(file)
   province_data <- fromJSON(file)
 
   language_data<-table(province_data$language) #Getting languages frequency
   language_data<-as.data.frame(language_data) #To data frame
   language_data<-language_data[ order(language_data$Freq,decreasing=TRUE), ] #Sorting by frequency
   colnames(language_data) <- c("language", "developers")
+  
+  
+  ##Getting old files
+        file_commits<-paste(url_commits, utf[i],".json", sep="")
+        commits <- fromJSON(file_commits)
+        
+        commits<-as.data.frame(commits)#To data frame
+        dates<-commits$commit$author$date#Getting dates
+        new_dates<-substr(dates,1 ,10 )#Removing unused data
+        commits$commit$author$date<-new_dates#To commits data frame
+        
+        commits<-data.frame(commits$commit$author$date,commits$sha)#Getting important data
+        
+        aux_date <- ""
+        f <- function(x, output) {
+          print(x['commits.commit.author.date'])
+          print(aux_date)
+          print("--------------------------------")
+          if(x['commits.commit.author.date']== aux_date){
+            output<-FALSE
+          }
+          else{
+            aux_date <<- x['commits.commit.author.date']
+            output<-TRUE
+          }
+        }
+        
+        
+        duplicated<-apply(commits,1,f)#Detecting duplicated dates
+        
+        commits<-commits[duplicated,]#Removing duplicated dates
+  ##End getting old files
   
   ##Language
   new_province<-list(cities[i],language_data)
