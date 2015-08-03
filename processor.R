@@ -3,6 +3,13 @@
 library(jsonlite)
 library(httr)
 
+
+##GitHub API keys
+id<-Sys.getenv("GH_ID")
+secret<-Sys.getenv("GH_SECRET")
+
+
+
 ############################################################################################
 print("-------------SPAIN-----------------------")
 print("Reading data from Spain")
@@ -34,42 +41,41 @@ rm(list=ls())
 
 
 print("-------------PROVINCES-----------------------")
-
+history<-5
+      
 provinces <- fromJSON("./Proyectos/GitHub-DataProcessor-Spain/cities.json")
 
 cities<-provinces$city
 utf<-provinces$utf
-population<-as.numeric(provinces$population)
+#population<-as.numeric(provinces$population)
 
 
 url<-"https://raw.githubusercontent.com/JJ/top-github-users-data/master/data/user-data-"
 url_commits<-"https://api.github.com/repos/JJ/top-github-users-data/commits?path=data/user-data-"
-
-languages_result<-list()
-totalContributions_result<-c()
-totalContributionsPopulation_result<-c()
+url_old<-"https://raw.githubusercontent.com/JJ/top-github-users-data/"  
 
 
-
-
+#languages_result<-list()
+totalContributions_result<-list()
+totalContributionsCities<-data.frame()
+#totalContributionsPopulation_result<-c()
+#totalContributionsCities<-data.frame()
 
 for (i in 1:length(cities)) {
-  print(sprintf("Getting data about languages in %s",cities[i]))
-  file<-paste(url, utf[i],".json", sep="")
+  #print(sprintf("Getting data about languages in %s",cities[i]))
+  #file<-paste(url, utf[i],".json", sep="")
   print(cities[i])
-  province_data <- fromJSON(file)
+  #province_data <- fromJSON(file)
 
-  language_data<-table(province_data$language) #Getting languages frequency
-  language_data<-as.data.frame(language_data) #To data frame
-  language_data<-language_data[ order(language_data$Freq,decreasing=TRUE), ] #Sorting by frequency
-  colnames(language_data) <- c("language", "developers")
-  
-  
   ##Getting old files
-        file_commits<-paste(url_commits, utf[i],".json", sep="")
-        commits <- fromJSON(file_commits)
+        print("Getting data from old files....····")
+        file_commits<-paste(url_commits, utf[i],".json&client_id=",id,"&client_secret=",secret, sep="")
         
-        commits<-as.data.frame(commits)#To data frame
+        print(file_commits)
+        
+        commitsJSON <- fromJSON(file_commits)
+        
+        commits<-as.data.frame(commitsJSON)#To data frame
         dates<-commits$commit$author$date#Getting dates
         new_dates<-substr(dates,1 ,10 )#Removing unused data
         commits$commit$author$date<-new_dates#To commits data frame
@@ -78,9 +84,6 @@ for (i in 1:length(cities)) {
         
         aux_date <- ""
         f <- function(x, output) {
-          print(x['commits.commit.author.date'])
-          print(aux_date)
-          print("--------------------------------")
           if(x['commits.commit.author.date']== aux_date){
             output<-FALSE
           }
@@ -90,29 +93,73 @@ for (i in 1:length(cities)) {
           }
         }
         
-        
         duplicated<-apply(commits,1,f)#Detecting duplicated dates
         
         commits<-commits[duplicated,]#Removing duplicated dates
-  ##End getting old files
+        
+        commits<-commits[1:history,]#Only last 5 files
+        commits<-commits$commits.sha#Getting sha
+        
+        print("----Donwloading old versions of file")
+        
+        new_cityTotalContributions<-NULL
+        totalContributions_result<-NULL
+        
+        totalContributions_result<-append(totalContributions_result,cities[i])
+        for(j in seq(commits)){
+          sha<-commits[j]
+          file_old<-paste(url_old,sha, "/data/user-data-",utf[i],".json", sep="")
+          old_data <- fromJSON(file_old)
+          totalcontributions<-sum(as.numeric(old_data$contributions))  
+          totalContributions_result<-append(totalContributions_result,totalcontributions)
+        }
+        
+        new_cityTotalContributions<-data.frame()
+        new_cityTotalContributions<-rbind(new_cityTotalContributions,totalContributions_result)
+        
+        colnames<-c("city")
+        colnames<-append(colnames,seq(1,history,1))
+        colnames(new_cityTotalContributions)<-colnames
+        
+        totalContributionsCities<- rbind( totalContributionsCities, new_cityTotalContributions)
+    ##End getting old files
+}
+
+##########################
+#Total contributions format
+##########################
+totalContributionsCities$`1`<-as.character(totalContributionsCities$`1`)#Factor to char
+totalContributionsCities$`1`<-as.numeric(totalContributionsCities$`1`)#Char to numeric
+
+final<-totalContributionsCities[ order(totalContributionsCities$`1`,decreasing=TRUE), ]#Order 
+exportJson <- toJSON(final)#To JSON
+print("Writing data total contributions JSON file")
+write(exportJson, "./Proyectos/GitHub-DataProcessor-Spain/ProcessedData/totalContributions.json")#Writing
+##########################
+
   
   ##Language
-  new_province<-list(cities[i],language_data)
-  languages_result[[i]]<-new_province
+ # language_data<-table(province_data$language) #Getting languages frequency
+#  language_data<-as.data.frame(language_data) #To data frame
+#  language_data<-language_data[ order(language_data$Freq,decreasing=TRUE), ] #Sorting by frequency
+#  colnames(language_data) <- c("language", "developers")
+#  new_province<-list(cities[i],language_data)
+#  languages_result[[i]]<-new_province
   
-  
-  ##Total contributions
-  totalcontributions<-sum(as.numeric(province_data$contributions))  
-  totalContributions_result<-append(totalContributions_result,totalcontributions)
   
   
   ##Total contributions population
-  totalcontributionsPopulation<-totalcontributions/population[i]
-  print(totalcontributionsPopulation)
-  totalContributionsPopulation_result<-append(totalContributionsPopulation_result,totalcontributionsPopulation)
-}
+ # totalcontributionsPopulation<-totalcontributions/population[i]
+#  print(totalcontributionsPopulation)
+#  totalContributionsPopulation_result<-append(totalContributionsPopulation_result,totalcontributionsPopulation)
+#en bucle iba}
 
 
+
+colnames<-c("city")
+colnames<-append(colnames,seq(1,history,1))
+
+colnames(totalContributionsCities)<-colnames
 
 
 
