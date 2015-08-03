@@ -55,23 +55,24 @@ url_commits<-"https://api.github.com/repos/JJ/top-github-users-data/commits?path
 url_old<-"https://raw.githubusercontent.com/JJ/top-github-users-data/"  
 
 
-#languages_result<-list()
+languages_result<-list()
 totalContributions_result<-list()
 totalContributionsCities<-data.frame()
 #totalContributionsPopulation_result<-c()
-#totalContributionsCities<-data.frame()
 
 for (i in 1:length(cities)) {
-  #print(sprintf("Getting data about languages in %s",cities[i]))
-  #file<-paste(url, utf[i],".json", sep="")
+  print(paste("Getting data from ",cities[i], sep=""))
+  
+  file<-paste(url, utf[i],".json", sep="")
   print(cities[i])
-  #province_data <- fromJSON(file)
+  province_data <- fromJSON(file)
 
   ##Getting old files
-        print("Getting data from old files....····")
+        print("   Getting total contributions")
+        print(paste("   |-----Getting all commits from ",cities[i]," city's file", sep=""))
+        
         file_commits<-paste(url_commits, utf[i],".json&client_id=",id,"&client_secret=",secret, sep="")
         
-        print(file_commits)
         
         commitsJSON <- fromJSON(file_commits)
         
@@ -100,10 +101,12 @@ for (i in 1:length(cities)) {
         commits<-commits[1:history,]#Only last 5 files
         commits<-commits$commits.sha#Getting sha
         
-        print("----Donwloading old versions of file")
         
         new_cityTotalContributions<-NULL
         totalContributions_result<-NULL
+        
+        
+        print("         |------Getting total contributions in old files")
         
         totalContributions_result<-append(totalContributions_result,cities[i])
         for(j in seq(commits)){
@@ -114,6 +117,7 @@ for (i in 1:length(cities)) {
           totalContributions_result<-append(totalContributions_result,totalcontributions)
         }
         
+        #Saving data about total contributions
         new_cityTotalContributions<-data.frame()
         new_cityTotalContributions<-rbind(new_cityTotalContributions,totalContributions_result)
         
@@ -122,8 +126,22 @@ for (i in 1:length(cities)) {
         colnames(new_cityTotalContributions)<-colnames
         
         totalContributionsCities<- rbind( totalContributionsCities, new_cityTotalContributions)
+        #Ending saving data about total contributions
+        
     ##End getting old files
+      
+    ##Getting languages in each province
+    print("   Getting languages in province")
+    language_data<-table(province_data$language) #Getting languages frequency
+    language_data<-as.data.frame(language_data) #To data frame
+    language_data<-language_data[ order(language_data$Freq,decreasing=TRUE), ] #Sorting by frequency
+    colnames(language_data) <- c("language", "developers")
+    new_province<-list(cities[i],language_data)
+    languages_result[[i]]<-new_province
+    ##End getting languages in each province
 }
+
+print("Data from provinces calculated!")
 
 ##########################
 #Total contributions format
@@ -137,14 +155,16 @@ print("Writing data total contributions JSON file")
 write(exportJson, "./Proyectos/GitHub-DataProcessor-Spain/ProcessedData/totalContributions.json")#Writing
 ##########################
 
-  
-  ##Language
- # language_data<-table(province_data$language) #Getting languages frequency
-#  language_data<-as.data.frame(language_data) #To data frame
-#  language_data<-language_data[ order(language_data$Freq,decreasing=TRUE), ] #Sorting by frequency
-#  colnames(language_data) <- c("language", "developers")
-#  new_province<-list(cities[i],language_data)
-#  languages_result[[i]]<-new_province
+
+##########################
+#Languages in province format
+##########################
+exportJson <- toJSON(languages_result)#To JSON
+print("Writing data about languages in JSON file")
+write(exportJson, "./Proyectos/GitHub-DataProcessor-Spain/ProcessedData/languagesProvince.json")#Writing
+
+
+
   
   
   
@@ -162,11 +182,6 @@ colnames<-append(colnames,seq(1,history,1))
 colnames(totalContributionsCities)<-colnames
 
 
-
-#####Languages in province
-exportJson <- toJSON(languages_result)#To JSON
-print("Writing data about languages in JSON file")
-write(exportJson, "./Proyectos/GitHub-DataProcessor-Spain/ProcessedData/languagesProvince.json")#Writing
 
 
 
