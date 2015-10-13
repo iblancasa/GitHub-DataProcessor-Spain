@@ -1,6 +1,10 @@
+#!/usr/bin/Rscript
+install.packages("jsonlite", repos="http://cran.r-project.org")
+install.packages("httr", repos="http://cran.r-project.org")
 
 library(jsonlite)
 library(httr)
+
 
 City<-setClass(
   "City",
@@ -40,11 +44,13 @@ setMethod(f="getData",
                         ".json", 
                         sep="")
             data<-fromJSON(URLencode(file))
-            newCity<-City(name="Ávila", id="4193a11aeba858759f78",secret="dcae8c9a69bf672f854efa5fbf53fa4ec3e2b97c")
+            newCity<-City(name=theObject@name, id=theObject@id,secret=theObject@secret)
             newCity@data<-data
             eval.parent(substitute(theObject<-newCity))
             }
 )
 
-city<-City(name="Ávila", id="4193a11aeba858759f78",secret="dcae8c9a69bf672f854efa5fbf53fa4ec3e2b97c")
+city<-City(name="Ávila", id=Sys.getenv("GH_ID"),secret=Sys.getenv("GH_SECRET"))
 city<-getData(city)
+
+city@data
