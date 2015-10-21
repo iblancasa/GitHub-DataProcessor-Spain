@@ -18,21 +18,13 @@ In another repo, [here](https://github.com/iblancasa/GitHub-DataProcessed-Spain)
 
 ## What have I to do to run the script?
 You will need install some things:
-* Python
-* PyOpenSSL
-* ndg-httpsclient
-* pyasn1
-* Pip
+* libcurl
+  * deb: libcurl4-openssl-dev (Debian, Ubuntu, etc)
+  * rpm: libcurl-devel (Fedora, CentOS, RHEL)
+  * csw: libcurl_dev (Solaris)
+* R interpreter
+* Some packages in the script
 
-If you are in Debian/Ubuntu:
-
-```bash
-sudo apt-get install python-pip python-dev build-essential
-sudo easy_install pip
-sudo pip install pyopenssl ndg-httpsclient pyasn1
-```
-
-Then, you can run in terminal with ``python start.py``
 
 ## License
 
