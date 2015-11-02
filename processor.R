@@ -50,36 +50,40 @@ provinces <- fromJSON("cities.json")
 
 cities<-provinces$city
 utf<-provinces$utf
-#population<-as.numeric(provinces$population)
+population<-as.numeric(provinces$population)
 
 
 url<-"https://raw.githubusercontent.com/JJ/top-github-users-data/master/data/user-data-"
-url_commits<-"https://api.github.com/repos/JJ/top-github-users-data/commits?path=data/user-data-"
-url_old<-"https://raw.githubusercontent.com/JJ/top-github-users-data/"  
 
 
 languages_result<-list()
 
 
 
-for (i in 1:length(cities)) {
-  print(paste("Getting data from ",cities[i], sep=""))
-  
-  file<-paste(url, utf[i],".json", sep="")
-  print(cities[i])
-  province_data <- fromJSON(file)
 
-        
-          ##Getting languages in each province
-          print("   Getting languages in province")
-          language_data<-table(province_data$language) #Getting languages frequency
-          language_data<-as.data.frame(language_data) #To data frame
-          language_data<-language_data[ order(language_data$Freq,decreasing=TRUE), ] #Sorting by frequency
-          colnames(language_data) <- c("language", "developers")
-          new_province<-list(cities[i],language_data)
-          languages_result[[i]]<-new_province
-          ##End getting languages in each province
+calcule <- function (name_city){
+    print(paste("Getting data from ",name_city, sep=""))
+    
+    file<-paste(url, name_city,".json", sep="")
+    file<-URLencode(file)
+    print(file)
+    province_data <- fromJSON(file)
+    
+    
+    ##Getting languages in each province
+    print("   Getting languages in province")
+    language_data<-table(province_data$language) #Getting languages frequency
+    language_data<-as.data.frame(language_data) #To data frame
+    language_data<-language_data[ order(language_data$Freq,decreasing=TRUE), ] #Sorting by frequency
+    colnames(language_data) <- c("language", "developers")
+    new_province<-list(name_city,language_data)
+    languages_result<<-list(languages_result,new_province)
+    ##End getting languages in each province
 }
+
+
+sapply(cities,calcule)
+
 
 print("Data from provinces calculated!")
 
